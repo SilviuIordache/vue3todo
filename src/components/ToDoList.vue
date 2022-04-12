@@ -4,6 +4,7 @@
       <h1 class="mb-3">List items: {{ props.items.length }}</h1>
       <div v-if="props.items.length > 0">
         <div v-for="(item, index) in props.items" :key="index">
+          <input type="checkbox" @click="toggleCompletion">
           {{ index + 1 }}. {{ item.text }} | prio: {{ item.prio }}
         </div>
       </div>
@@ -13,6 +14,11 @@
 </template>
 
 <script setup>
+const emit = defineEmits(["toggleCompletion"]);
 const props = defineProps({ items: Array });
+
+function toggleCompletion() {
+  
+}
 </script>
 <style lang=""></style>
