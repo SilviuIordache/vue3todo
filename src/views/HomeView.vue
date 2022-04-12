@@ -1,7 +1,7 @@
 <template>
   <main>
     <AddToDo @add-todo="addToDo" />
-    <ToDoList items="items"/>
+    <ToDoList :items="items"/>
   </main>
 </template>
 
