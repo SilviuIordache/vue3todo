@@ -58,16 +58,19 @@ watch(toDo, (val) => {
 });
 
 function addGoal() {
-  emit("add-todo", toDo.value);
+  const payload = {
+    text: toDo.value,
+    prio: priority.value,
+  };
+  emit("add-todo", payload);
   toDo.value = "";
+  priority.value = 1;
 }
 
-const priority = ref(0);
-
+const priority = ref(1);
 const incrementDisabled = computed(() => {
   return priority.value === 4;
 });
-
 function incrementPrio() {
   priority.value++;
 }
