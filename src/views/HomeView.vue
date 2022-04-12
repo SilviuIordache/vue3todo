@@ -6,6 +6,7 @@
           <AddToDo @add-todo="addToDo" />
           <ToDoList
             @toggle-completion="toggleCompletion"
+            @delete-item="deleteItem"
             class="mt-2"
             :items="items"
           />
@@ -51,5 +52,12 @@ function addToDo(item) {
 function toggleCompletion(id) {
   const arrayID = items.value.findIndex((item) => item.id === id);
   items.value[arrayID].completed = !items.value[arrayID].completed;
+}
+
+function deleteItem(id) {
+  const arrayID = items.value.findIndex((item) => item.id === id);
+  items.value.splice(arrayID, 1);
+
+  localStorage.setItem("toDoItems", JSON.stringify(items.value));
 }
 </script>
