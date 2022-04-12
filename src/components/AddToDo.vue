@@ -2,7 +2,7 @@
   <div class="card px-3 py-5">
     <div class="card-body">
       <h1 class="mb-5">Add to do</h1>
-      <form @submit.prevent="addGoal">
+      <form @submit.prevent="addGoal" autocomplete="off">
         <div>
           <label for="addToDo" class="form-label">Description</label>
           <input
@@ -59,8 +59,10 @@ watch(toDo, (val) => {
 
 function addGoal() {
   const payload = {
+    id: new Date().getTime(),
     text: toDo.value,
     prio: priority.value,
+    completed: false,
   };
   emit("add-todo", payload);
   toDo.value = "";
