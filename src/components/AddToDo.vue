@@ -47,50 +47,36 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, watch, computed } from "vue";
+const emit = defineEmits(["add-todo"]);
 
-export default {
-  setup(_, context) {
-    const toDo = ref("");
-    let addGoalDisabled = ref(true);
-    watch(toDo, (val) => {
-      addGoalDisabled.value = val.length < 1 ? true : false;
-    });
+const toDo = ref("");
+let addGoalDisabled = ref(true);
+watch(toDo, (val) => {
+  addGoalDisabled.value = val.length < 1 ? true : false;
+});
 
-    function addGoal() {
-      context.emit("add-todo", toDo.value);
-      toDo.value = "";
-    }
+function addGoal() {
+  emit("add-todo", toDo.value);
+  toDo.value = "";
+}
 
-    const priority = ref(0);
+const priority = ref(0);
 
-    const incrementDisabled = computed(() => {
-      return priority.value === 4;
-    });
+const incrementDisabled = computed(() => {
+  return priority.value === 4;
+});
 
-    function incrementPrio() {
-      priority.value++;
-    }
-    const decrementDisabled = computed(() => {
-      return priority.value === 0;
-    });
-    function decrementPrio() {
-      priority.value--;
-    }
-
-    return {
-      toDo,
-      addGoal,
-      addGoalDisabled,
-      priority,
-      incrementDisabled,
-      incrementPrio,
-      decrementDisabled,
-      decrementPrio,
-    };
-  },
-};
+function incrementPrio() {
+  priority.value++;
+}
+const decrementDisabled = computed(() => {
+  return priority.value === 0;
+});
+function decrementPrio() {
+  priority.value--;
+}
 </script>
 
 <style scoped></style>
