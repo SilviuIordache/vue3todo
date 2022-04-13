@@ -19,45 +19,38 @@
 <script setup>
 import AddToDo from "@/components/AddToDo.vue";
 import ToDoList from "@/components/ToDoList.vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 const items = ref([]);
 
-onMounted(() => {
-  const storage = localStorage.getItem("toDoItems");
-
-  if (storage) {
-    const storageItems = JSON.parse(storage);
-    items.value = storageItems;
-  } else {
-    localStorage.setItem("toDoItems", JSON.stringify([]));
-  }
-});
 function addToDo(item) {
   items.value.push(item);
 
-  // update local storage
   const storage = localStorage.getItem("toDoItems");
   if (storage) {
     const newItems = JSON.parse(storage);
     newItems.push(item);
-    localStorage.setItem("toDoItems", JSON.stringify(newItems));
+    updateStorage(newItems);
   } else {
-    const newStorage = [];
-    newStorage.push(item);
-    localStorage.setItem("toDoItems", newStorage);
+    const newItems = [];
+    newItems.push(item);
+    updateStorage(newItems);
   }
 }
 
 function toggleCompletion(id) {
   const arrayID = items.value.findIndex((item) => item.id === id);
   items.value[arrayID].completed = !items.value[arrayID].completed;
+  updateStorage(items.value);
 }
 
 function deleteItem(id) {
   const arrayID = items.value.findIndex((item) => item.id === id);
   items.value.splice(arrayID, 1);
+  updateStorage(items.value);
+}
 
-  localStorage.setItem("toDoItems", JSON.stringify(items.value));
+function updateStorage(items) {
+  localStorage.setItem("toDoItems", JSON.stringify(items));
 }
 </script>

@@ -19,7 +19,9 @@
               {{ index + 1 }}. {{ item.text }} | prio: {{ item.prio }}
             </div>
           </div>
-          <button class="btn btn-danger" @click="deleteItem(item.id)">Del</button>
+          <button class="btn btn-danger" @click="deleteItem(item.id)">
+            Del
+          </button>
         </div>
       </div>
       <p v-else>No items added yet</p>
