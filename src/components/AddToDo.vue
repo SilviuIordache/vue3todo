@@ -14,8 +14,7 @@
           />
         </div>
         <div class="mt-3">
-          <p>Priority</p>
-          <p>{{ priority }}</p>
+          <p>Priority: {{ priority }}</p>
           <div class="d-flex">
             <button
               type="button"
